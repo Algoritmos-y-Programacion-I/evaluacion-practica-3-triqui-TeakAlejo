@@ -70,9 +70,30 @@ public class Executable {
 
     private void jugadaHumano() {
         // Implementación de jugada de humano
+
+        System.out.println("Ingrese la fila en la que quiere realizar la jugada(0, 1 o 2): ");
+        int fila = reader.nextInt();
+        System.out.println("Ingrese la columna en la que quiere realizar la jugada (0, 1 o 2): ");
+        int columna = reader.nextInt();
+
+        boolean jugadaValida = cont.jugadaHumano(fila, columna);
+        if (jugadaValida) {
+            System.out.println("Jugada realizada con éxito.");
+        } else {
+            System.out.println("La casilla está ocupada o las coordenadas son inválidas. Intente de nuevo.");
+        }
+        imprimirTablero();
+
+
+
     }
 
     private void validarGanador() {
-        // Implementación de la validación si alguien ya ganó el triqui
+        String ganador = cont.verificarGanador();
+        if (ganador.equals(" ")) {
+            System.out.println("No hay ganador aún.");
+        } else {
+            System.out.println("El ganador es: " + ganador);
+        }
     }
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Controladora {
 
@@ -36,7 +37,7 @@ public class Controladora {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 sb.append(tableroTresEnRaya[i][j]);
-                if (j < 2) sb.append("|");
+                if (j < 2) sb.append(" | ");
             }
             sb.append("\n");
             if (i < 2) sb.append("-----\n");
@@ -55,5 +56,51 @@ public class Controladora {
             j = rand.nextInt(3);
         } while (!tableroTresEnRaya[i][j].equals(" "));
         tableroTresEnRaya[i][j] = "X";
+    }
+
+    /**
+     * Realiza una jugada el humano.
+     */
+
+     public boolean jugadaHumano(int i, int j) {
+        if (i >= 0 && i < 3 && j >= 0 && j < 3 && tableroTresEnRaya[i][j].equals(" ")) {
+            tableroTresEnRaya[i][j] = "O";
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Valida si hay un ganador en el tablero.
+     * @return "X" si gana la máquina, "O" si gana el humano, o null si no hay ganador.
+     */
+    public String verificarGanador() {
+        // Validar filas y columnas
+        for (int i = 0; i < 3; i++) {
+            if (tableroTresEnRaya[i][0].equals(tableroTresEnRaya[i][1]) && 
+                tableroTresEnRaya[i][1].equals(tableroTresEnRaya[i][2]) &&
+                !tableroTresEnRaya[i][0].equals(" ")) {
+                return tableroTresEnRaya[i][0];
+            }
+            if (tableroTresEnRaya[0][i].equals(tableroTresEnRaya[1][i]) &&
+                tableroTresEnRaya[1][i].equals(tableroTresEnRaya[2][i]) &&
+                !tableroTresEnRaya[0][i].equals(" ")) {
+                return tableroTresEnRaya[0][i];
+            }
+        }
+
+        // Validar diagonales
+        if (tableroTresEnRaya[0][0].equals(tableroTresEnRaya[1][1]) &&
+            tableroTresEnRaya[1][1].equals(tableroTresEnRaya[2][2]) &&
+            !tableroTresEnRaya[0][0].equals(" ")) {
+            return tableroTresEnRaya[0][0];
+        }
+        if (tableroTresEnRaya[0][2].equals(tableroTresEnRaya[1][1]) &&
+            tableroTresEnRaya[1][1].equals(tableroTresEnRaya[2][0]) &&
+            !tableroTresEnRaya[0][2].equals(" ")) {
+            return tableroTresEnRaya[0][2];
+        }
+
+        return null; 
     }
 }
